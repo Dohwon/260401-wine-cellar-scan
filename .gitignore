@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.local
+.env:Zone.Identifier
+.DS_Store
+outputs/
+harness_artifacts/
+handoff_harness.md
+harness_goal.md
+data/cellar-records.json
+data/external-catalog-cache.json
+data/wine-labels.json

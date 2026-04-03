@@ -1,0 +1,218 @@
+<!doctype html>
+<html class="light" lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Refined Collector</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="top-nav-left">
+        <span class="brand-mark">The Refined Collector</span>
+        <div class="top-nav-links">
+          <a href="#ledger-section">Cellar</a>
+          <a href="#insights-section">Analytics</a>
+          <a class="active" href="#upload-section">Upload</a>
+        </div>
+      </div>
+      <div class="top-nav-actions">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span class="material-symbols-outlined nav-icon">account_circle</span>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <header class="hero-header">
+        <h1>The Sommelier's Ledger</h1>
+        <p>Curation Interface — Personal Cellar Edition</p>
+      </header>
+
+      <div class="main-grid">
+        <section class="workflow-panel" id="upload-section">
+          <div class="step-block">
+            <div class="step-head">
+              <h2>STEP 01: Upload</h2>
+              <span>라벨이 선명한 사진 권장</span>
+            </div>
+            <label class="upload-stage" for="image-input">
+              <input id="image-input" name="image" type="file" accept="image/*" />
+              <div class="upload-backdrop"></div>
+              <div class="upload-content">
+                <span class="material-symbols-outlined upload-icon">add_photo_alternate</span>
+                <span class="upload-button">Select Label Image</span>
+                <p>JPG 또는 PNG. 라벨 텍스트가 크게 보이면 매칭 정확도가 올라갑니다.</p>
+              </div>
+              <img id="preview-image" alt="업로드된 와인 사진 미리보기" hidden />
+              <div id="preview-empty" class="upload-empty">이미지를 올리면 여기에서 미리볼 수 있습니다.</div>
+            </label>
+            <button class="scan-submit" id="scan-button" type="button">Run Label Match</button>
+            <div class="status-box" id="scan-status" data-tone="neutral">
+              <div class="status-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span id="scan-status-label">아직 스캔 전입니다.</span>
+            </div>
+          </div>
+
+          <div class="step-block">
+            <div class="step-head">
+              <h2>STEP 02: Match</h2>
+              <span>후보 3~5개</span>
+            </div>
+            <div class="extraction-box" id="extraction-box" hidden>
+              <dl class="field-grid" id="extraction-fields"></dl>
+            </div>
+            <div id="candidate-empty" class="empty-state">스캔을 실행하면 이곳에 후보가 나타납니다.</div>
+            <div id="candidate-list" class="candidate-list"></div>
+          </div>
+
+          <form id="save-form" class="step-block save-block" hidden>
+            <div class="step-head">
+              <h2>STEP 03: Tasting Notes</h2>
+              <span>저장 전 마지막 확인</span>
+            </div>
+
+            <div class="selected-summary" id="selected-summary">선택된 와인 없음</div>
+
+            <div class="slider-block">
+              <div class="slider-labels">
+                <span>Bone Dry</span>
+                <span>Botrytis Sweet</span>
+              </div>
+              <input id="sweetness-input" class="taste-slider" type="range" min="0" max="100" step="5" value="50" />
+              <div class="sweetness-readout" id="sweetness-readout">Balanced</div>
+            </div>
+
+            <div class="notes-block abv-block">
+              <label class="field-label" for="abv-input">Alcohol by Volume</label>
+              <input
+                id="abv-input"
+                class="abv-input"
+                type="number"
+                min="0"
+                max="30"
+                step="0.1"
+                inputmode="decimal"
+                placeholder="예: 13.5"
+              />
+            </div>
+
+            <div class="notes-block">
+              <label class="field-label" for="comment-input">Sommelier Observations</label>
+              <textarea
+                id="comment-input"
+                maxlength="280"
+                placeholder="예: 블랙베리, 자두, 말린 허브 느낌이 좋고 피니시가 길었다."
+                rows="4"
+              ></textarea>
+            </div>
+
+            <div class="rating-block">
+              <label class="field-label">Personal Rating</label>
+              <div class="rating-stars" id="rating-grid"></div>
+              <div class="rating-readout" id="rating-readout">0.0 / 5.0</div>
+            </div>
+
+            <div class="decision-block">
+              <button class="decision-button active" id="decision-again-button" data-decision="again" type="button">
+                또 먹을 와인
+              </button>
+              <button class="decision-button" id="decision-pass-button" data-decision="pass" type="button">
+                다시 안 먹을 와인
+              </button>
+            </div>
+
+            <button class="save-submit" id="save-button" type="submit">Save to Ledger</button>
+          </form>
+        </section>
+
+        <section class="ledger-panel" id="ledger-section">
+          <div class="ledger-top">
+            <div>
+              <h2>The Cellar Book</h2>
+              <p>Archived Vintages & Managed Assets</p>
+            </div>
+            <div class="ledger-search">
+              <label for="record-search">Inventory Search</label>
+              <div class="ledger-search-input">
+                <input id="record-search" type="text" placeholder="Search by producer, region, country..." />
+                <span class="material-symbols-outlined">search</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ledger-filter-tabs">
+            <button class="filter-tab active" id="filter-again-button" type="button">또 먹을 와인</button>
+            <button class="filter-tab" id="filter-pass-button" type="button">다시 안 먹을 와인</button>
+          </div>
+
+          <div class="ledger-controls">
+            <label class="ledger-sort" for="record-sort">
+              <span>Sort By</span>
+              <select id="record-sort">
+                <option value="alpha">ABC 순</option>
+                <option value="latest">먹은 날짜 최신순</option>
+                <option value="oldest">먹은 날짜 오래된 순</option>
+                <option value="most-consumed">많이 먹은 순</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="ledger-count" id="record-count">0 bottles</div>
+          <div id="record-empty" class="empty-state">아직 저장된 기록이 없습니다.</div>
+          <div id="record-list" class="record-list custom-scrollbar"></div>
+          <div class="pagination" id="record-pagination" hidden></div>
+        </section>
+      </div>
+
+      <section class="insights-section" id="insights-section">
+        <div class="insights-head">
+          <span></span>
+          <h2>Portfolio Insights</h2>
+        </div>
+
+        <div class="insights-grid">
+          <section class="insight-panel">
+            <h3>The Taste Map: Flavor Profile Scattering</h3>
+            <div class="taste-summary" id="taste-summary">또 먹을 와인이 쌓이면 내 취향 좌표를 그립니다.</div>
+            <div id="taste-empty" class="empty-state">또 먹을 와인이 1개 이상 있어야 좌표를 그릴 수 있습니다.</div>
+            <div class="taste-map" id="taste-map" hidden>
+              <div class="taste-grid" id="taste-grid"></div>
+              <div class="axis axis-y">Dry ↔ Sweet</div>
+              <div class="axis axis-x">Low Rating ↔ High Rating</div>
+            </div>
+          </section>
+
+          <section class="insight-panel">
+            <h3>Country Affinity: Region Density</h3>
+            <div class="country-summary" id="country-summary">또 먹을 와인이 쌓이면 나라 선호도를 계산합니다.</div>
+            <div id="country-empty" class="empty-state">또 먹을 와인이 1개 이상 있어야 나라 선호도가 나타납니다.</div>
+            <div id="country-bars" class="country-bars"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 The Refined Collector · Personal Cellar Edition</span>
+      <div>
+        <a href="#ledger-section">Journal Archives</a>
+        <a href="#insights-section">Taste Map</a>
+        <a href="#upload-section">Upload</a>
+      </div>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

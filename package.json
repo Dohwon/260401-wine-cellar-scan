@@ -1,0 +1,9 @@
+{
+  "name": "260401-wine-cellar-scan",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  }
+}

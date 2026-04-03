@@ -1,0 +1,252 @@
+[
+  {
+    "id": "andean-vineyards-malbec-2025",
+    "producer": "Andean Vineyards",
+    "wineName": "Malbec",
+    "vintage": 2025,
+    "region": "Mendoza",
+    "country": "Argentina",
+    "grapeVariety": "Malbec",
+    "aliases": ["Andean Vineyards Malbec", "Andean Malbec"]
+  },
+  {
+    "id": "catena-malbec-2022",
+    "producer": "Catena",
+    "wineName": "Malbec",
+    "vintage": 2022,
+    "region": "Mendoza",
+    "country": "Argentina",
+    "grapeVariety": "Malbec",
+    "aliases": ["Catena Malbec", "Catena Appellation Malbec"]
+  },
+  {
+    "id": "trapiche-broquel-malbec-2022",
+    "producer": "Trapiche",
+    "wineName": "Broquel Malbec",
+    "vintage": 2022,
+    "region": "Mendoza",
+    "country": "Argentina",
+    "grapeVariety": "Malbec",
+    "aliases": ["Trapiche Malbec", "Broquel Malbec"]
+  },
+  {
+    "id": "zuccardi-q-malbec-2022",
+    "producer": "Zuccardi",
+    "wineName": "Q Malbec",
+    "vintage": 2022,
+    "region": "Mendoza",
+    "country": "Argentina",
+    "grapeVariety": "Malbec",
+    "aliases": ["Zuccardi Malbec", "Q Malbec"]
+  },
+  {
+    "id": "montes-alpha-malbec-2021",
+    "producer": "Montes",
+    "wineName": "Montes Alpha",
+    "vintage": 2021,
+    "region": "Valle de Colchagua",
+    "country": "Chile",
+    "grapeVariety": "Malbec",
+    "aliases": ["Montes Alpha Malbec", "Montes Alpha", "Montes Malbec"]
+  },
+  {
+    "id": "opus-one-2018",
+    "producer": "Opus One Winery",
+    "wineName": "Opus One",
+    "vintage": 2018,
+    "region": "Napa Valley",
+    "country": "USA",
+    "grapeVariety": "Bordeaux Blend",
+    "aliases": ["Opus One", "OpusOne"]
+  },
+  {
+    "id": "caymus-cabernet-2021",
+    "producer": "Caymus Vineyards",
+    "wineName": "Cabernet Sauvignon",
+    "vintage": 2021,
+    "region": "Napa Valley",
+    "country": "USA",
+    "grapeVariety": "Cabernet Sauvignon",
+    "aliases": ["Caymus Cabernet", "Caymus"]
+  },
+  {
+    "id": "chateau-margaux-2015",
+    "producer": "Chateau Margaux",
+    "wineName": "Premier Grand Cru Classe",
+    "vintage": 2015,
+    "region": "Margaux",
+    "country": "France",
+    "grapeVariety": "Bordeaux Blend",
+    "aliases": ["Margaux", "Chateau Margaux"]
+  },
+  {
+    "id": "lafite-rothschild-2018",
+    "producer": "Chateau Lafite Rothschild",
+    "wineName": "Premier Grand Cru Classe",
+    "vintage": 2018,
+    "region": "Pauillac",
+    "country": "France",
+    "grapeVariety": "Bordeaux Blend",
+    "aliases": ["Lafite", "Lafite Rothschild"]
+  },
+  {
+    "id": "penfolds-bin-389-2020",
+    "producer": "Penfolds",
+    "wineName": "Bin 389 Cabernet Shiraz",
+    "vintage": 2020,
+    "region": "South Australia",
+    "country": "Australia",
+    "grapeVariety": "Cabernet Sauvignon / Shiraz",
+    "aliases": ["Bin 389", "Penfolds 389"]
+  },
+  {
+    "id": "cloudy-bay-sb-2023",
+    "producer": "Cloudy Bay",
+    "wineName": "Sauvignon Blanc",
+    "vintage": 2023,
+    "region": "Marlborough",
+    "country": "New Zealand",
+    "grapeVariety": "Sauvignon Blanc",
+    "aliases": ["Cloudy Bay Sauvignon Blanc", "Cloudy Bay SB"]
+  },
+  {
+    "id": "dom-perignon-2013",
+    "producer": "Dom Perignon",
+    "wineName": "Vintage",
+    "vintage": 2013,
+    "region": "Champagne",
+    "country": "France",
+    "grapeVariety": "Champagne Blend",
+    "aliases": ["Dom Perignon Vintage", "Dom P"]
+  },
+  {
+    "id": "veuve-clicquot-yellow-label",
+    "producer": "Veuve Clicquot",
+    "wineName": "Yellow Label Brut",
+    "vintage": null,
+    "region": "Champagne",
+    "country": "France",
+    "grapeVariety": "Champagne Blend",
+    "aliases": ["Yellow Label", "Veuve Clicquot Brut"]
+  },
+  {
+    "id": "tignanello-2020",
+    "producer": "Marchesi Antinori",
+    "wineName": "Tignanello",
+    "vintage": 2020,
+    "region": "Tuscany",
+    "country": "Italy",
+    "grapeVariety": "Sangiovese Blend",
+    "aliases": ["Antinori Tignanello", "Tignanello"]
+  },
+  {
+    "id": "sassicaia-2020",
+    "producer": "Tenuta San Guido",
+    "wineName": "Sassicaia",
+    "vintage": 2020,
+    "region": "Bolgheri",
+    "country": "Italy",
+    "grapeVariety": "Cabernet Sauvignon Blend",
+    "aliases": ["Sassicaia", "Tenuta San Guido Sassicaia"]
+  },
+  {
+    "id": "la-rioja-alta-904-2015",
+    "producer": "La Rioja Alta",
+    "wineName": "Gran Reserva 904",
+    "vintage": 2015,
+    "region": "Rioja",
+    "country": "Spain",
+    "grapeVariety": "Tempranillo Blend",
+    "aliases": ["904", "La Rioja Alta 904"]
+  },
+  {
+    "id": "beringer-private-reserve-2018",
+    "producer": "Beringer",
+    "wineName": "Private Reserve Cabernet Sauvignon",
+    "vintage": 2018,
+    "region": "Napa Valley",
+    "country": "USA",
+    "grapeVariety": "Cabernet Sauvignon",
+    "aliases": ["Beringer Private Reserve", "Private Reserve"]
+  },
+  {
+    "id": "d-yquem-2017",
+    "producer": "Chateau d'Yquem",
+    "wineName": "Premier Cru Superieur",
+    "vintage": 2017,
+    "region": "Sauternes",
+    "country": "France",
+    "grapeVariety": "Semillon / Sauvignon Blanc",
+    "aliases": ["d'Yquem", "Yquem"]
+  },
+  {
+    "id": "louis-jadot-chablis-2022",
+    "producer": "Louis Jadot",
+    "wineName": "Chablis",
+    "vintage": 2022,
+    "region": "Chablis",
+    "country": "France",
+    "grapeVariety": "Chardonnay",
+    "aliases": ["Louis Jadot Chablis", "Jadot Chablis"]
+  },
+  {
+    "id": "kim-crawford-sb-2023",
+    "producer": "Kim Crawford",
+    "wineName": "Sauvignon Blanc",
+    "vintage": 2023,
+    "region": "Marlborough",
+    "country": "New Zealand",
+    "grapeVariety": "Sauvignon Blanc",
+    "aliases": ["Kim Crawford Sauvignon Blanc", "Kim Crawford SB"]
+  },
+  {
+    "id": "duckhorn-merlot-2021",
+    "producer": "Duckhorn Vineyards",
+    "wineName": "Merlot",
+    "vintage": 2021,
+    "region": "Napa Valley",
+    "country": "USA",
+    "grapeVariety": "Merlot",
+    "aliases": ["Duckhorn Merlot", "Duckhorn"]
+  },
+  {
+    "id": "mondavi-napa-cabernet-2019",
+    "producer": "Robert Mondavi Winery",
+    "wineName": "Napa Valley Cabernet Sauvignon",
+    "vintage": 2019,
+    "region": "Napa Valley",
+    "country": "USA",
+    "grapeVariety": "Cabernet Sauvignon",
+    "aliases": ["Robert Mondavi Napa Cabernet", "Mondavi Cabernet"]
+  },
+  {
+    "id": "rombauer-chardonnay-2022",
+    "producer": "Rombauer Vineyards",
+    "wineName": "Chardonnay",
+    "vintage": 2022,
+    "region": "Carneros",
+    "country": "USA",
+    "grapeVariety": "Chardonnay",
+    "aliases": ["Rombauer Chardonnay", "Rombauer"]
+  },
+  {
+    "id": "ornellaia-2020",
+    "producer": "Tenuta dell'Ornellaia",
+    "wineName": "Ornellaia",
+    "vintage": 2020,
+    "region": "Bolgheri",
+    "country": "Italy",
+    "grapeVariety": "Bordeaux Blend",
+    "aliases": ["Ornellaia", "Tenuta Ornellaia"]
+  },
+  {
+    "id": "joseph-phelps-insignia-2019",
+    "producer": "Joseph Phelps",
+    "wineName": "Insignia",
+    "vintage": 2019,
+    "region": "Napa Valley",
+    "country": "USA",
+    "grapeVariety": "Bordeaux Blend",
+    "aliases": ["Insignia", "Joseph Phelps Insignia"]
+  }
+]
