@@ -1,0 +1,40 @@
+[
+  {
+    "id": "record_1775231721997",
+    "wineId": "montes-alpha-malbec-2021",
+    "producer": "Montes",
+    "wineName": "Montes Alpha",
+    "vintage": 2021,
+    "region": "Valle de Colchagua",
+    "country": "Chile",
+    "grapeVariety": "Malbec",
+    "sweetness": 50,
+    "sweetnessLabel": "Balanced",
+    "abv": 14.5,
+    "rating": 4.5,
+    "comment": "말할 필요없는 내 최애. 적당히 드라이하고 적당히 달고 끝에 신맛도 없어서 부드럽게 넘어가는 것 같다",
+    "drinkAgain": true,
+    "decisionLabel": "또 먹을 와인",
+    "createdAt": "2026-04-03T15:55:21.997Z",
+    "imageName": null,
+    "extractionMode": "live"
+  },
+  {
+    "id": "record_1775054169028",
+    "wineId": "andean-vineyards-malbec-2025",
+    "producer": "Andean Vineyards",
+    "wineName": "Malbec",
+    "vintage": 2025,
+    "region": "Mendoza",
+    "country": "Argentina",
+    "grapeVariety": "Malbec",
+    "sweetness": 22,
+    "sweetnessLabel": "Dry Plush",
+    "rating": 4,
+    "comment": "블랙베리와 자두 느낌, 부드럽게 단데 끝맛이 살짝 셔서 처음에는 으잉? 하게 된다. 말백류로 괜찮",
+    "createdAt": "2026-04-01T14:36:09.028Z",
+    "imageName": null,
+    "extractionMode": "live",
+    "updatedAt": "2026-04-01T15:20:48.459Z"
+  }
+]

@@ -9,10 +9,13 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const HOST = process.env.HOST || '0.0.0.0'
 const PORT = Number(process.env.PORT || 4321)
-const DATA_DIR = path.join(__dirname, 'data')
-const CATALOG_PATH = path.join(DATA_DIR, 'wine-catalog.json')
+const SEED_DATA_DIR = path.join(__dirname, 'data')
+const DATA_DIR = fs.existsSync('/data') ? '/data' : SEED_DATA_DIR
+const CATALOG_PATH = path.join(SEED_DATA_DIR, 'wine-catalog.json')
+const DEFAULT_RECORDS_PATH = path.join(SEED_DATA_DIR, 'default-cellar-records.json')
 const RECORDS_PATH = path.join(DATA_DIR, 'cellar-records.json')
 const EXTERNAL_CACHE_PATH = path.join(DATA_DIR, 'external-catalog-cache.json')
+const DEFAULT_LABELS_PATH = path.join(SEED_DATA_DIR, 'default-wine-labels.json')
 const LABELS_PATH = path.join(DATA_DIR, 'wine-labels.json')
 
 const MIME_TYPES = {
@@ -21,6 +24,7 @@ const MIME_TYPES = {
   '.js': 'application/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
@@ -88,6 +92,19 @@ async function readJson(filePath, fallback) {
 
 async function writeJson(filePath, value) {
   await writeFile(filePath, JSON.stringify(value, null, 2) + '\n', 'utf8')
+}
+
+async function ensureRuntimeDataFiles() {
+  await fs.promises.mkdir(DATA_DIR, { recursive: true })
+
+  if (!fs.existsSync(RECORDS_PATH)) {
+    const defaultRecords = await readJson(DEFAULT_RECORDS_PATH, [])
+    await writeJson(RECORDS_PATH, defaultRecords)
+  }
+
+  if (!fs.existsSync(LABELS_PATH)) {
+    await writeJson(LABELS_PATH, {})
+  }
 }
 
 async function readRequestBody(req) {
@@ -163,12 +180,43 @@ function clamp(number, min, max) {
   return Math.min(max, Math.max(min, number))
 }
 
-function sanitizeLabelImageDataUrl(value) {
+function sanitizeLabelImageSource(value) {
   if (typeof value !== 'string') return null
   const trimmed = value.trim()
-  if (!/^data:image\/(png|jpe?g|webp);base64,[a-z0-9+/=]+$/i.test(trimmed)) return null
-  if (trimmed.length > 2_500_000) return null
-  return trimmed
+  if (/^data:image\/(png|jpe?g|webp);base64,[a-z0-9+/=]+$/i.test(trimmed)) {
+    if (trimmed.length > 2_500_000) return null
+    return trimmed
+  }
+  if (/^\/assets\/[a-z0-9/_-]+\.(png|jpe?g|webp|svg)$/i.test(trimmed)) {
+    return trimmed
+  }
+  return null
+}
+
+function getStoredLabelImage(labelEntry) {
+  if (!labelEntry || typeof labelEntry !== 'object') return null
+  return sanitizeLabelImageSource(labelEntry.imagePath || labelEntry.imageDataUrl)
+}
+
+function getRecordLabelImage(record, labels) {
+  return getStoredLabelImage(labels?.[record.wineId]) || sanitizeLabelImageSource(record.labelImageDataUrl)
+}
+
+function hasStoredLabelImage(wineId, labels) {
+  return Boolean(getStoredLabelImage(labels?.[wineId]))
+}
+
+function mergeLabelSources(defaultLabels, customLabels) {
+  return {
+    ...(customLabels || {}),
+    ...(defaultLabels || {}),
+  }
+}
+
+function sanitizeLabelImageDataUrl(value) {
+  const sanitized = sanitizeLabelImageSource(value)
+  if (!sanitized || !sanitized.startsWith('data:image/')) return null
+  return sanitized
 }
 
 function parseVintage(value) {
@@ -683,7 +731,9 @@ async function handleCreateRecord(body) {
   const catalog = await readJson(CATALOG_PATH, [])
   const externalCatalog = await readJson(EXTERNAL_CACHE_PATH, [])
   const records = await readJson(RECORDS_PATH, [])
+  const defaultLabels = await readJson(DEFAULT_LABELS_PATH, {})
   const labels = await readJson(LABELS_PATH, {})
+  const effectiveLabels = mergeLabelSources(defaultLabels, labels)
   const wineId = String(body.wineId || '').trim()
   const comment = String(body.comment || '').trim()
   const rating = Number(body.rating)
@@ -740,7 +790,7 @@ async function handleCreateRecord(body) {
   }
 
   records.unshift(record)
-  if (labelImageDataUrl) {
+  if (labelImageDataUrl && !hasStoredLabelImage(wine.id, effectiveLabels)) {
     labels[wine.id] = {
       imageDataUrl: labelImageDataUrl,
       updatedAt: new Date().toISOString(),
@@ -775,7 +825,8 @@ async function handleUpdateRecord(recordId, body) {
 }
 
 function serveStaticFile(req, res) {
-  const requestPath = req.url === '/' ? '/index.html' : req.url
+  const requestUrl = new URL(req.url || '/', 'http://localhost')
+  const requestPath = requestUrl.pathname === '/' ? '/index.html' : requestUrl.pathname
   const safePath = path
     .normalize(decodeURIComponent(requestPath))
     .replace(/^[/\\]+/, '')
@@ -827,11 +878,13 @@ const server = createServer(async (req, res) => {
 
     if (req.method === 'GET' && req.url === '/api/records') {
       const records = await readJson(RECORDS_PATH, [])
+      const defaultLabels = await readJson(DEFAULT_LABELS_PATH, {})
       const labels = await readJson(LABELS_PATH, {})
+      const effectiveLabels = mergeLabelSources(defaultLabels, labels)
       sendJson(res, 200, {
         records: records.map((record) => ({
           ...record,
-          labelImageDataUrl: sanitizeLabelImageDataUrl(labels?.[record.wineId]?.imageDataUrl || record.labelImageDataUrl),
+          labelImageDataUrl: getRecordLabelImage(record, effectiveLabels),
         })),
       })
       return
@@ -878,7 +931,16 @@ const server = createServer(async (req, res) => {
   }
 })
 
-server.listen(PORT, HOST, () => {
-  console.log(`Wine Cellar Scan listening on http://${HOST}:${PORT}`)
-  console.log(`Vision mode: ${OPENAI_API_KEY ? `live (${OPENAI_MODEL})` : 'simulation'}`)
+async function startServer() {
+  await ensureRuntimeDataFiles()
+  server.listen(PORT, HOST, () => {
+    console.log(`Wine Cellar Scan listening on http://${HOST}:${PORT}`)
+    console.log(`Vision mode: ${OPENAI_API_KEY ? `live (${OPENAI_MODEL})` : 'simulation'}`)
+    console.log(`Data directory: ${DATA_DIR}`)
+  })
+}
+
+startServer().catch((error) => {
+  console.error('Failed to start server:', error)
+  process.exit(1)
 })

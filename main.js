@@ -103,9 +103,11 @@ function escapeHtml(value) {
 }
 
 function sanitizeLabelImageUrl(value) {
-  return typeof value === 'string' && /^data:image\/(png|jpe?g|webp);base64,[a-z0-9+/=]+$/i.test(value)
-    ? value
-    : ''
+  if (typeof value !== 'string') return ''
+  const trimmed = value.trim()
+  if (/^data:image\/(png|jpe?g|webp);base64,[a-z0-9+/=]+$/i.test(trimmed)) return trimmed
+  if (/^\/assets\/[a-z0-9/_-]+\.(png|jpe?g|webp|svg)$/i.test(trimmed)) return trimmed
+  return ''
 }
 
 function getSweetnessLabel(value) {

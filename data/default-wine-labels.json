@@ -1,0 +1,12 @@
+{
+  "andean-vineyards-malbec-2025": {
+    "imagePath": "/assets/wine-labels/andean-vineyards-malbec.png",
+    "source": "curated",
+    "updatedAt": "2026-04-05T00:00:00.000Z"
+  },
+  "montes-alpha-malbec-2021": {
+    "imagePath": "/assets/wine-labels/montes-alpha-malbec.png",
+    "source": "curated",
+    "updatedAt": "2026-04-05T00:00:00.000Z"
+  }
+}
